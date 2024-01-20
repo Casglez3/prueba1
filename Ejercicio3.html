@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj</title>
+
+    <style>
+        /* Le damos un estilo al elemento con el ID "reloj" */
+        #reloj{
+            font-size: 24px;
+            text-align: center;
+            margin: 50px;
+            border: 2px solid #040618;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgb(243, 173, 150);
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Creamos un contenedor en la página web con un identificador único ("reloj") especificado  mediante el atributo id -->
+    <div id="reloj"></div>
+
+    <!-- A continuación ponemos el código Script-->
+    <script>
+
+        // Creamos una función para obtener el elemento del reloj por su ID
+        function actualizarReloj(){
+
+            let relojElemento = document.getElementById("reloj");
+
+            // Creamos una nueva instancia de la fecha y hora actual a través de una variable
+            let fechaHoraActual = new Date();
+
+
+            //Creamos dos variables para obtener el nombre del día de la semana
+            let diaSemana = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+            let nombreDiaSemana = diaSemana[fechaHoraActual.getDay()];
+
+            //Creamos una variable para obtener el día del mes
+            let diaMes = fechaHoraActual.getDate();
+
+            //Creamos dos variables para obtener el nombre del mes
+            let meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+            let nombreMes = meses[fechaHoraActual.getMonth()];
+
+            //Creamos una variable para obtener el año
+            let año = fechaHoraActual.getFullYear();
+
+            //Creamos las respectivas variables para obtener la hora, los minutos y los segundos
+            let hora = fechaHoraActual.getHours();
+            let minutos = fechaHoraActual.getMinutes();
+            let segundos = fechaHoraActual.getSeconds();
+
+            //Creamos una variable para poder formatear la hora y ponerla en formato de 12 horas con la configuración de la hora española
+            let formatoHora = new Intl.DateTimeFormat('es', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: false,
+                timeZone: 'Europe/Madrid' // Especificamos la zona horaria de Madrid 
+
+                }).format(fechaHoraActual);    
+
+
+            // Actualizamos el contenido del elemento reloj
+            relojElemento.textContent = `Hoy es ${nombreDiaSemana}, ${diaMes} de ${nombreMes} de ${año} y son las ${formatoHora}`;
+
+            // Llamamos a la función nuevamente después de 1000 milisegundos (1 segundo) para que se actulize 
+            setTimeout(actualizarReloj, 1000);
+
+        }
+
+        // Llamamos a la función por primera vez para iniciar el reloj
+        actualizarReloj();    
+
+
+    </script>
+</body>
+</html>
